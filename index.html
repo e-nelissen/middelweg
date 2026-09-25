@@ -45,7 +45,7 @@
     line-height: 1.5;
   }
   .wrap {
-    max-width: 620px;
+    max-width: 700px;
     margin: 0 auto;
     padding: 40px 20px 70px;
   }
@@ -67,20 +67,22 @@
   }
   .location { font-size: 1rem; color: var(--ink-soft); margin: 0; }
   hr { border: none; border-top: 1px solid var(--line); margin: 24px 0; }
+  
   .gallery {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 150px 95px;
-    gap: 6px;
-    margin: 24px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 6px;
+  margin: 24px 0;
   }
-  .gallery .big { grid-column: 1 / 3; grid-row: 1; }
-  .gallery img, .ph {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+  .gallery img.big { grid-column: span 2; }
+  .gallery img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
   }
+  
   .ph {
     border: 1px dashed var(--line);
     align-items: center;
@@ -163,14 +165,17 @@
   </header>
 
   <div class="gallery">
-    <img class="big" src="living-room.jpg" alt="Living room">
-    <img src="kitchen.jpg" alt="Kitchen">
-    <img src="bedroom.jpg" alt="Bedroom">
+    <img src="living-room.jpg" class="big" alt="Living room" onclick="openLightbox(this)">
+    <img src="kitchen.jpg" alt="Kitchen" onclick="openLightbox(this)">
+    <img src="living-room-kitchen.jpg" alt="Bedroom" onclick="openLightbox(this)">
+    <img src="bathroom.jpg" alt="Bathroom" onclick="openLightbox(this)">
+    <img src="bedroom.jpg" alt="Bedroom" onclick="openLightbox(this)">
   </div>
 
   <table class="facts">
-    <tr><td>Rent</td><td>&euro; 1200 EUR / month + 30 EUR expenses (not including electricity, water, or internet)</td></tr>
-    <tr><td>Contract type</td><td>1 year (extension possible)</td></tr>
+    <tr><td>Rent</td><td>&euro; 1200 / month</td></tr>
+    <tr><td>Expenses</td><td>&euro; 30 / month (building costs)</td>
+    <tr><td>Contract type</td><td>1 year (extension TBD)</td></tr>
     <tr><td>Bedrooms</td><td>1</td></tr>
     <tr><td>Floor area</td><td>75 m&sup2;</td></tr>
     <tr><td>Garden</td><td>150 m&sup2;</td></tr>
@@ -181,13 +186,13 @@
   <hr>
 
   <h2>Description</h2>
-  <p>Light, energy efficient apartment with open view located in a quiet and convivial street in the heart of Heverlee, close to the city center, imec. The forest starts at the end of the street and each Sunday the cozy Heverlee market is around the corner. Renter must be willing to maintain the garden!</p>
+  <p>Light, energy efficient apartment with open view onto a sizeable city garden located in a quiet and convivial street in the heart of Heverlee, close to the city center, imec. The forest starts at the end of the street and each Sunday the cozy Heverlee market is around the corner. Renter must be willing to maintain the garden!</p>
 
   <hr>
 
   <h2>Amenities</h2>
   <ul class="amenities">
-    <li>Fully furnished, including Auping mattress and sofa bed for visitors</li>
+    <li>Fully furnished, including Auping mattress, sofa bed for visitors, adjustable desk</li>
     <li>Open concept: perfect for a single person or couple</li>
     <li>Hallway equipped with large, built-in storage</li>
     <li>Fully equipped kitchen with built-in combi oven, dishwasher and induction stove</li>
@@ -249,8 +254,19 @@
     if (date) body += 'Preferred date/time: ' + date + '\n';
     if (about) body += '\nAbout me:\n' + about + '\n';
 
-    window.location.href = 'mailto:[your-email]?subject=' + subject + '&body=' + encodeURIComponent(body);
+    window.location.href = 'mailto:elisa.nelissen@hotmail.com?subject=' + subject + '&body=' + encodeURIComponent(body);
   });
 </script>
+
+  <div id="lightbox" onclick="this.style.display='none'" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:999;align-items:center;justify-content:center;padding:20px;">
+  <img id="lightbox-img" style="max-width:100%;max-height:100%;object-fit:contain;">
+</div>
+<script>
+  function openLightbox(img) {
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').style.display = 'flex';
+  }
+</script>
+  
 </body>
 </html>
