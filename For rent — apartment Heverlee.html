@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For rent - apartment Heverlee</title>
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --bg-panel: #F2F2F2;
+    --ink: #1A1A1A;
+    --ink-soft: #5C5C5C;
+    --accent: #C8102E;
+    --line: #D8D8D8;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121212;
+      --bg-panel: #1C1C1C;
+      --ink: #EAEAEA;
+      --ink-soft: #A6A6A6;
+      --accent: #E23A50;
+      --line: #333333;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #121212;
+    --bg-panel: #1C1C1C;
+    --ink: #EAEAEA;
+    --ink-soft: #A6A6A6;
+    --accent: #E23A50;
+    --line: #333333;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    line-height: 1.5;
+  }
+  .wrap {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 40px 20px 70px;
+  }
+  header { margin-bottom: 28px; border-bottom: 4px solid var(--accent); padding-bottom: 20px; }
+  .tag {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 4px 10px;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
+    line-height: 1.2;
+    margin: 0 0 8px;
+    font-weight: 700;
+  }
+  .location { font-size: 1rem; color: var(--ink-soft); margin: 0; }
+  hr { border: none; border-top: 1px solid var(--line); margin: 24px 0; }
+  .gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 150px 95px;
+    gap: 6px;
+    margin: 24px 0;
+  }
+  .gallery .big { grid-column: 1 / 3; grid-row: 1; }
+  .ph {
+    border: 1px dashed var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    background: var(--bg-panel);
+  }
+  table.facts {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+  }
+  table.facts td {
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  table.facts td:first-child { color: var(--ink-soft); }
+  table.facts td:last-child { text-align: right; font-weight: 600; }
+  h2 { font-size: 1.15rem; margin: 0 0 8px; font-weight: 700; }
+  p { margin: 0 0 1em; }
+  p:last-child { margin-bottom: 0; }
+  ul.amenities {
+    margin: 0;
+    padding-left: 20px;
+  }
+  ul.amenities li { padding: 2px 0; }
+  .contact {
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    padding: 20px;
+    margin-top: 32px;
+  }
+  .contact h2 { margin-bottom: 4px; }
+  .contact p.sub { color: var(--ink-soft); margin-bottom: 16px; }
+  .contact table.facts td:last-child { text-align: right; }
+  .cta {
+    display: inline-block;
+    margin-top: 16px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 12px 20px;
+    border: none;
+    text-decoration: none;
+  }
+  .cta:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  footer { margin-top: 32px; color: var(--ink-soft); font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="tag">FOR RENT</span>
+    <h1>Furnished apartment in Heverlee</h1>
+    <p class="location">[Street and number], 3001 Heverlee. Close to Leuven.</p>
+  </header>
+
+  <div class="gallery">
+    <div class="ph big">Add photo: living room</div>
+    <div class="ph">Photo: kitchen</div>
+    <div class="ph">Photo: bedroom</div>
+  </div>
+
+  <table class="facts">
+    <tr><td>Rent</td><td>&euro; [XXX] / month</td></tr>
+    <tr><td>Contract type</td><td>Short-term, 1 year</td></tr>
+    <tr><td>Bedrooms</td><td>[X]</td></tr>
+    <tr><td>Floor area</td><td>[XX] m&sup2;</td></tr>
+    <tr><td>Available from</td><td>[date]</td></tr>
+  </table>
+
+  <hr>
+
+  <h2>Description</h2>
+  <p>[Short description of the apartment: light, location, neighbourhood and what makes it stand out. Two or three sentences is enough.]</p>
+
+  <hr>
+
+  <h2>Amenities</h2>
+  <ul class="amenities">
+    <li>Fully furnished</li>
+    <li>Built-in kitchen cupboards</li>
+    <li>Dishwasher</li>
+    <li>[Add amenity]</li>
+  </ul>
+
+  <div class="contact">
+    <h2>Interested?</h2>
+    <p class="sub">Send a message or arrange a viewing.</p>
+    <table class="facts">
+      <tr><td>Name</td><td>[Your name]</td></tr>
+      <tr><td>Phone</td><td>[number]</td></tr>
+      <tr><td>Email</td><td>[address]</td></tr>
+    </table>
+    <a class="cta" href="mailto:[your-email]">Send a message</a>
+  </div>
+
+  <footer>
+    <p>No agent. Direct contact with the owner.</p>
+  </footer>
+</div>
+</body>
+</html>
