@@ -67,6 +67,20 @@
   }
   .location { font-size: 1rem; color: var(--ink-soft); margin: 0; }
   hr { border: none; border-top: 1px solid var(--line); margin: 24px 0; }
+
+  .map-embed {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.map-embed iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: 0;
+}
   
   .gallery {
   display: grid;
@@ -161,13 +175,13 @@
   <header>
     <span class="tag">FOR RENT</span>
     <h1>Furnished apartment in Heverlee</h1>
-    <p class="location">Middelweg 41/0001, 3001 Heverlee</p>
+    <p class="location">Middelweg, 3001 Heverlee</p>
   </header>
 
   <div class="gallery">
     <img src="living-room.jpg" class="big" alt="Living room" onclick="openLightbox(this)">
     <img src="kitchen.jpg" alt="Kitchen" onclick="openLightbox(this)">
-    <img src="living-room-kitchen.jpg" alt="Bedroom" onclick="openLightbox(this)">
+    <img src="living-room-kitchen.jpg" alt="Living room and kitchen" onclick="openLightbox(this)">
     <img src="bathroom.jpg" alt="Bathroom" onclick="openLightbox(this)">
     <img src="bedroom.jpg" alt="Bedroom" onclick="openLightbox(this)">
   </div>
@@ -203,58 +217,56 @@
     <li>Floor heating</li>
   </ul>
 
-  <div class="contact">
-    <h2>Get in touch</h2>
-    <p class="sub">Fill in your details to schedule a viewing.</p>
-    <form id="viewing-form">
-      <div class="field">
-        <label for="v-name">Name</label>
-        <input type="text" id="v-name" required>
-      </div>
-      <div class="field">
-        <label for="v-email">Email</label>
-        <input type="email" id="v-email" required>
-      </div>
-      <div class="field">
-        <label for="v-phone">Phone (optional)</label>
-        <input type="tel" id="v-phone">
-      </div>
-      <div class="field">
-        <label for="v-date">Preferred date / time</label>
-        <input type="text" id="v-date" placeholder="e.g. Saturday afternoon">
-      </div>
-      <div class="field">
-        <label for="v-about">Tell us a bit about yourself </label>
-        <textarea id="v-about" rows="4" placeholder="Who will be living here, what you are looking for, anything you would like us to know"></textarea>
-      </div>
-      <button type="submit" class="cta">Get in touch</button>
-    </form>
-  </div>
+  <hr>
 
+<h2>Location</h2>
+<div class="map-embed">
+  <iframe src="https://www.google.com/maps?q=Middelweg,3001+Heverlee&output=embed" loading="lazy" allowfullscreen></iframe>
+</div>
+  
+  <div class="contact">
+  <h2>Get in touch</h2>
+  <p class="sub">Fill in your details to schedule a viewing.</p>
+  <form id="viewing-form" action="https://script.google.com/macros/s/AKfycbySL6bNnSWh4fN1IXwQnncLIepNVQJ_iJptwsaX6OrB_aiJzYzRRqPOMsEhGGEP6t01/exec" method="POST">
+    <div class="field">
+      <label for="v-name">Name</label>
+      <input type="text" id="v-name" name="name" required>
+    </div>
+    <div class="field">
+      <label for="v-email">Email</label>
+      <input type="email" id="v-email" name="email" required>
+    </div>
+    <div class="field">
+      <label for="v-phone">Phone (optional)</label>
+      <input type="tel" id="v-phone" name="phone">
+    </div>
+    <div class="field">
+      <label for="v-date">Preferred date / time</label>
+      <input type="text" id="v-date" name="date" placeholder="e.g. Saturday afternoon">
+    </div>
+    <div class="field">
+      <label for="v-about">Tell us a bit about yourself</label>
+      <textarea id="v-about" name="about" rows="4" placeholder="Who will be living here, what you are looking for, anything you would like us to know"></textarea>
+    </div>
+    <button type="submit" class="cta">Get in touch</button>
+  </form>
+</div>
 
 </div>
 
 <script>
   document.getElementById('viewing-form').addEventListener('submit', function (e) {
     e.preventDefault();
-    var name = document.getElementById('v-name').value.trim();
-    var email = document.getElementById('v-email').value.trim();
-    var phone = document.getElementById('v-phone').value.trim();
-    var date = document.getElementById('v-date').value.trim();
-    var about = document.getElementById('v-about').value.trim();
-
-    if (!name || !email) {
-      alert('Please fill in your name and email.');
-      return;
-    }
-
-    var subject = encodeURIComponent('Viewing request: Heverlee apartment');
-    var body = 'Name: ' + name + '\n' + 'Email: ' + email + '\n';
-    if (phone) body += 'Phone: ' + phone + '\n';
-    if (date) body += 'Preferred date/time: ' + date + '\n';
-    if (about) body += '\nAbout me:\n' + about + '\n';
-
-    window.location.href = 'mailto:elisa.nelissen@hotmail.com?subject=' + subject + '&body=' + encodeURIComponent(body);
+    var form = e.target;
+    fetch(form.action, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: new FormData(form)
+    }).then(function () {
+      form.innerHTML = '<p>Thanks! Your viewing request has been sent. We will get back to you soon.</p>';
+    }).catch(function () {
+      alert('Something went wrong. Please check your connection and try again.');
+    });
   });
 </script>
 
