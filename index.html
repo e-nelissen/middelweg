@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,9 +75,14 @@
     margin: 24px 0;
   }
   .gallery .big { grid-column: 1 / 3; grid-row: 1; }
+  .gallery img, .ph {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
   .ph {
     border: 1px dashed var(--line);
-    display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.8rem;
@@ -109,18 +115,40 @@
     margin-top: 32px;
   }
   .contact h2 { margin-bottom: 4px; }
-  .contact p.sub { color: var(--ink-soft); margin-bottom: 16px; }
-  .contact table.facts td:last-child { text-align: right; }
+  .contact p.sub { color: var(--ink-soft); margin-bottom: 18px; }
+  .field { margin-bottom: 14px; }
+  .field label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  .field input, .field textarea {
+    width: 100%;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--ink);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    padding: 9px 10px;
+  }
+  .field textarea { resize: vertical; }
+  .field input:focus, .field textarea:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
   .cta {
     display: inline-block;
-    margin-top: 16px;
+    margin-top: 4px;
     background: var(--accent);
     color: #fff;
     font-weight: 700;
     font-size: 1rem;
+    font-family: inherit;
     padding: 12px 20px;
     border: none;
     text-decoration: none;
+    cursor: pointer;
   }
   .cta:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   footer { margin-top: 32px; color: var(--ink-soft); font-size: 0.85rem; }
@@ -135,9 +163,9 @@
   </header>
 
   <div class="gallery">
-    <div class="ph big">Add photo: living room</div>
-    <div class="ph">Photo: kitchen</div>
-    <div class="ph">Photo: bedroom</div>
+    <img class="big" src="living-room.jpg" alt="Living room">
+    <img src="kitchen.jpg" alt="Kitchen">
+    <img src="bedroom.jpg" alt="Bedroom">
   </div>
 
   <table class="facts">
@@ -164,19 +192,60 @@
   </ul>
 
   <div class="contact">
-    <h2>Interested?</h2>
-    <p class="sub">Send a message or arrange a viewing.</p>
-    <table class="facts">
-      <tr><td>Name</td><td>[Your name]</td></tr>
-      <tr><td>Phone</td><td>[number]</td></tr>
-      <tr><td>Email</td><td>[address]</td></tr>
-    </table>
-    <a class="cta" href="mailto:[your-email]">Send a message</a>
+    <h2>Schedule a viewing</h2>
+    <p class="sub">Fill in your details and we will get back to you to confirm a time.</p>
+    <form id="viewing-form">
+      <div class="field">
+        <label for="v-name">Name</label>
+        <input type="text" id="v-name" required>
+      </div>
+      <div class="field">
+        <label for="v-email">Email</label>
+        <input type="email" id="v-email" required>
+      </div>
+      <div class="field">
+        <label for="v-phone">Phone (optional)</label>
+        <input type="tel" id="v-phone">
+      </div>
+      <div class="field">
+        <label for="v-date">Preferred date / time</label>
+        <input type="text" id="v-date" placeholder="e.g. Saturday afternoon">
+      </div>
+      <div class="field">
+        <label for="v-about">Tell us a bit about yourself (optional)</label>
+        <textarea id="v-about" rows="4" placeholder="Who will be living here, what you are looking for, anything you would like us to know"></textarea>
+      </div>
+      <button type="submit" class="cta">Request a viewing</button>
+    </form>
   </div>
 
   <footer>
     <p>No agent. Direct contact with the owner.</p>
   </footer>
 </div>
+
+<script>
+  document.getElementById('viewing-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('v-name').value.trim();
+    var email = document.getElementById('v-email').value.trim();
+    var phone = document.getElementById('v-phone').value.trim();
+    var date = document.getElementById('v-date').value.trim();
+    var about = document.getElementById('v-about').value.trim();
+
+    if (!name || !email) {
+      alert('Please fill in your name and email.');
+      return;
+    }
+
+    var subject = encodeURIComponent('Viewing request: Heverlee apartment');
+    var body = 'Name: ' + name + '\n' + 'Email: ' + email + '\n';
+    if (phone) body += 'Phone: ' + phone + '\n';
+    if (date) body += 'Preferred date/time: ' + date + '\n';
+    if (about) body += '\nAbout me:\n' + about + '\n';
+
+    window.location.href = 'mailto:[your-email]?subject=' + subject + '&body=' + encodeURIComponent(body);
+  });
+</script>
 </body>
 </html>
